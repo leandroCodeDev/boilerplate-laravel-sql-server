@@ -1,0 +1,67 @@
+{
+    "config": {
+        "verbosity": "normal",
+        "ansi-colors": true,
+        "bootstrap": "./vendor/autoload.php",
+        "path": "vendor/bin/captainhook",
+        "git": ".git"
+    },
+    "commit-msg": {
+        "enabled": false,
+        "actions": []
+    },
+    "pre-push": {
+        "enabled": false,
+        "actions": [
+            {
+                "action": "./vendor/bin/pint -v",
+                "options": [],
+                "conditions": []
+            },
+            {
+                "action": "./vendor/bin/pest",
+                "options": [],
+                "conditions": []
+            }
+        ]
+    },
+    "pre-commit": {
+        "enabled": true,
+        "actions": [
+            {
+                "action": "./vendor/bin/pint -v",
+                "options": [],
+                "conditions": []
+            },
+            {
+                "action": "./vendor/bin/pest",
+                "options": [],
+                "conditions": []
+            }
+        ]
+    },
+    "prepare-commit-msg": {
+        "enabled": false,
+        "actions": []
+    },
+    "post-commit": {
+        "enabled": false,
+        "actions": []
+    },
+    "post-merge": {
+        "enabled": false,
+        "actions": []
+    },
+    "post-checkout": {
+        "enabled": false,
+        "actions": []
+    },
+    "post-rewrite": {
+        "enabled": false,
+        "actions": []
+    },
+    "post-change": {
+        "enabled": false,
+        "actions": []
+    }
+}

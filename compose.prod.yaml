@@ -1,0 +1,21 @@
+version: '3'
+services:
+
+  nuxt:
+    build:
+      context: .
+      dockerfile: ./docker/production/node/Dockerfile
+      args:
+        BACK_HOST_URL: ${BACK_HOST_URL}
+    container_name: nuxt
+    deploy:
+      restart_policy:
+        condition: on-failure
+        delay: 5s
+        max_attempts: 3
+        window: 120s
+    ports:
+      - '3000:3000'
+    env_file:
+      - .env
+    restart: always

@@ -1,0 +1,21 @@
+version: "3"
+
+services:
+  nuxt:
+    build: .
+    restart: always
+    ports:
+      - "3000:3000"
+    networks:
+      - sede-back-end_sail
+    volumes:
+      - .:/src
+      - node_modules:/src/node_modules
+
+networks:
+  sede-back-end_sail:
+    external: false
+
+
+volumes:
+  node_modules:
