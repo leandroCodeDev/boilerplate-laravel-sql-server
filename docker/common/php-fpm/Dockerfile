@@ -27,51 +27,6 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     && docker-php-ext-enable redis \
     && apt-get autoremove -y && apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
-RUN apt-get update && apt-get install -y --no-install-recommends \
-    curl \
-    gnupg2 \
-    apt-transport-https \
-    ca-certificates \
-    software-properties-common && \
-    curl -sSL -o packages-microsoft-prod.deb https://packages.microsoft.com/config/debian/$(grep VERSION_ID /etc/os-release | cut -d '"' -f 2)/packages-microsoft-prod.deb && \
-    dpkg -i packages-microsoft-prod.deb && \
-    rm packages-microsoft-prod.deb && \
-    apt-get update && ACCEPT_EULA=Y apt-get install -y --no-install-recommends \
-    msodbcsql18 \
-    mssql-tools18 \
-    unixodbc \
-    unixodbc-dev && \
-    echo 'export PATH="$PATH:/opt/mssql-tools18/bin"' > /etc/profile.d/mssql-tools.sh && \
-    echo 'export PATH="$PATH:/opt/mssql-tools18/bin"' > ~/.bashrc
-
-RUN bash -c "source ~/.bashrc"
-
-
-RUN curl -sSL -O https://packages.microsoft.com/config/debian/$(grep VERSION_ID /etc/os-release | cut -d '"' -f 2 | cut -d '.' -f 1)/packages-microsoft-prod.deb
-RUN dpkg -i packages-microsoft-prod.deb
-RUN rm packages-microsoft-prod.deb
-
-RUN apt-get update
-RUN ACCEPT_EULA=Y apt-get install -y msodbcsql18
-RUN ACCEPT_EULA=Y apt-get install -y mssql-tools18
-RUN echo 'export PATH="$PATH:/opt/mssql-tools18/bin"' >> ~/.bashrc
-# RUN source ~/.bashrc
-RUN echo "source ~/.bashrc" >> ~/.bash_profile
-
-RUN apt-get install -y unixodbc-dev
-RUN apt-get install -y libgssapi-krb5-2
-
-# RUN apt-get update && ACCEPT_EULA=Y apt-get install -y --no-install-recommends \
-#     unixodbc \
-#     libgssapi-krb5-2 \
-#     unixodbc-dev && \
-#     chmod +x /etc/profile.d/mssql-tools.sh && \
-#     pecl install sqlsrv &&  \
-#     pecl install pdo_sqlsrv && \
-#     echo "extension=sqlsrv.so" >> /usr/local/etc/php/conf.d/docker-php-ext-sqlsrv.ini && \
-#     echo "extension=pdo_sqlsrv.so" >> /usr/local/etc/php/conf.d/docker-php-ext-pdo-sqlsrv.ini && \
-#     phpenmod -v 8.3 sqlsrv pdo_sqlsrv && \
-RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 # Set the working directory inside the container
 WORKDIR /var/www
@@ -215,51 +170,6 @@ ARG XDEBUG_IDE_KEY=DOCKER
 ARG XDEBUG_LOG=/dev/stdout
 ARG XDEBUG_LOG_LEVEL=0
 
-RUN apt-get update && apt-get install -y --no-install-recommends \
-    curl \
-    gnupg2 \
-    apt-transport-https \
-    ca-certificates \
-    software-properties-common && \
-    curl -sSL -o packages-microsoft-prod.deb https://packages.microsoft.com/config/debian/$(grep VERSION_ID /etc/os-release | cut -d '"' -f 2)/packages-microsoft-prod.deb && \
-    dpkg -i packages-microsoft-prod.deb && \
-    rm packages-microsoft-prod.deb && \
-    apt-get update && ACCEPT_EULA=Y apt-get install -y --no-install-recommends \
-    msodbcsql18 \
-    mssql-tools18 \
-    unixodbc \
-    unixodbc-dev && \
-    echo 'export PATH="$PATH:/opt/mssql-tools18/bin"' > /etc/profile.d/mssql-tools.sh && \
-    echo 'export PATH="$PATH:/opt/mssql-tools18/bin"' > ~/.bashrc
-
-RUN bash -c "source ~/.bashrc"
-
-
-RUN curl -sSL -O https://packages.microsoft.com/config/debian/$(grep VERSION_ID /etc/os-release | cut -d '"' -f 2 | cut -d '.' -f 1)/packages-microsoft-prod.deb
-RUN dpkg -i packages-microsoft-prod.deb
-RUN rm packages-microsoft-prod.deb
-
-RUN apt-get update
-RUN ACCEPT_EULA=Y apt-get install -y msodbcsql18
-RUN ACCEPT_EULA=Y apt-get install -y mssql-tools18
-RUN echo 'export PATH="$PATH:/opt/mssql-tools18/bin"' >> ~/.bashrc
-# RUN source ~/.bashrc
-RUN echo "source ~/.bashrc" >> ~/.bash_profile
-
-RUN apt-get install -y unixodbc-dev
-RUN apt-get install -y libgssapi-krb5-2
-
-# RUN apt-get update && ACCEPT_EULA=Y apt-get install -y --no-install-recommends \
-#     unixodbc \
-#     libgssapi-krb5-2 \
-#     unixodbc-dev && \
-#     chmod +x /etc/profile.d/mssql-tools.sh && \
-#     pecl install sqlsrv &&  \
-#     pecl install pdo_sqlsrv && \
-#     echo "extension=sqlsrv.so" >> /usr/local/etc/php/conf.d/docker-php-ext-sqlsrv.ini && \
-#     echo "extension=pdo_sqlsrv.so" >> /usr/local/etc/php/conf.d/docker-php-ext-pdo-sqlsrv.ini && \
-#     phpenmod -v 8.3 sqlsrv pdo_sqlsrv && \
-RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 USER root
 
